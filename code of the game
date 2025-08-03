@@ -7,94 +7,92 @@ player_age = int(input(f"Nice to meet you, {player_name}! How old are you? "))
 print(f"Awesome! So you're {player_name}, and you're {player_age} years old.")
 print("Checking if you are old enough to play...")
 time.sleep(2)
-if player_age < 12:
+if player_age < 18:
     print("❌ Sorry, you're too young to play this game.")
-elif 12 <= player_age < 18:
-    print("⚠️ You're a bit young, so you'll play the simplified version.")
+
 else:
     print("✅ You're old enough to play the full game! Let's go! 🚀")
-time.sleep(1)
-player_health = 100
-player_armor = 0
-player_magic_resist = 0
-player_attack = 10
-items = {
-    "Sword": {"attack": 15, "armor": 0, "magic_resist": 0, "health": 0},
-    "Shield": {"attack": 0, "armor": 20, "magic_resist": 5, "health": 0},
-    "Ring": {"attack": 5, "armor": 0, "magic_resist": 10, "health": 20}
-}
-print(f"\n{player_name}, your starting stats are:")
-print("Health:", player_health)
-print("Armor:", player_armor)
-print("Magic Resist:", player_magic_resist)
-print("Attack:", player_attack)
-time.sleep(2)
+    time.sleep(1)
+    player_health = 100
+    player_armor = 0
+    player_magic_resist = 0
+    player_attack = 10
+    items = {
+        "Sword": {"attack": 15, "armor": 0, "magic_resist": 0, "health": 0},
+        "Shield": {"attack": 0, "armor": 20, "magic_resist": 5, "health": 0},
+        "Ring": {"attack": 5, "armor": 0, "magic_resist": 10, "health": 20}
+    }
+    print(f"\n{player_name}, your starting stats are:")
+    print("Health:", player_health)
+    print("Armor:", player_armor)
+    print("Magic Resist:", player_magic_resist)
+    print("Attack:", player_attack)
+    time.sleep(2)
 
-print("Choose 2 items from this list:")
-for i, item in enumerate(items.keys(), 1):
-    print(f"{i}. {item}")
+    print("Choose 2 items from this list:")
+    for i, item in enumerate(items.keys(), 1):
+        print(f"{i}. {item}")
 
-chosen = []
+    chosen = []
 
-while len(chosen) < 2:
-    choice = input("Pick item number: ")
-    if choice in ["1", "2", "3"]:
-        item_name = list(items.keys())[int(choice)-1]
-        if item_name not in chosen:
-            chosen.append(item_name)
+    while len(chosen) < 2:
+        choice = input("Pick item number: ")
+        if choice in ["1", "2", "3"]:
+            item_name = list(items.keys())[int(choice)-1]
+            if item_name not in chosen:
+                chosen.append(item_name)
+            else:
+                print("You already picked that item.")
         else:
-            print("You already picked that item.")
+            print("Please pick 1, 2, or 3.")
+    for item in chosen:
+        player_attack += items[item]["attack"]
+        player_armor += items[item]["armor"]
+        player_magic_resist += items[item]["magic_resist"]
+        player_health += items[item]["health"]
+
+    print(f"\n{player_name}, you picked:")
+    for item in chosen:
+        print("-", item)
+
+    print("\nYour stats after choosing items:")
+    print("Health:", player_health)
+    print("Armor:", player_armor)
+    print("Magic Resist:", player_magic_resist)
+    print("Attack:", player_attack)
+
+    print("\nGood luck,", player_name, "!")
+    time.sleep(1)
+
+
+    print("\n⚔️ Level 1 - A wild Goblin appears!")
+
+    monster_health = 50
+    monster_attack = 30
+
+    while monster_health > 0 and player_health > 0:
+        monster_health -= player_attack
+        damage = monster_attack - player_armor
+        if damage < 0:
+            damage = 0
+        player_health -= damage
+        print(f"\nYou hit the goblin! Goblin's health: {monster_health}")
+        print(f"The goblin hits you! Your health: {player_health-10}")
+        time.sleep(1.5)
+
+    if player_health <= 0:
+        print("\n💀 You were defeated by the goblin...")
     else:
-        print("Please pick 1, 2, or 3.")
-for item in chosen:
-    player_attack += items[item]["attack"]
-    player_armor += items[item]["armor"]
-    player_magic_resist += items[item]["magic_resist"]
-    player_health += items[item]["health"]
+        print("\n🎉 You defeated the goblin!")
+    time.sleep(2)
+    print("\n✨ You have proven your strength... Moving to the next level! ✨")
+    time.sleep(2)
+    print("\n⚔️ Level 2 - A big Troll is coming!")
 
-print(f"\n{player_name}, you picked:")
-for item in chosen:
-    print("-", item)
+    troll_health = 80
+    troll_attack = 25
 
-print("\nYour stats after choosing items:")
-print("Health:", player_health)
-print("Armor:", player_armor)
-print("Magic Resist:", player_magic_resist)
-print("Attack:", player_attack)
-
-print("\nGood luck,", player_name, "!")
-time.sleep(1)
-
-
-
-print("\n⚔️ Level 1 - A wild Goblin appears!")
-
-monster_health = 50
-monster_attack = 30
-
-while monster_health > 0 and player_health > 0:
-    monster_health -= player_attack
-    damage = monster_attack - player_armor
-    if damage < 0:
-        damage = 0
-    player_health -= damage
-    print(f"\nYou hit the goblin! Goblin's health: {monster_health}")
-    print(f"The goblin hits you! Your health: {player_health-10}")
-    time.sleep(1.5)
-
-if player_health <= 0:
-    print("\n💀 You were defeated by the goblin...")
-else:
-    print("\n🎉 You defeated the goblin!")
-time.sleep(2)
-print("\n✨ You have proven your strength... Moving to the next level! ✨")
-time.sleep(2)
-print("\n⚔️ Level 2 - A big Troll is coming!")
-
-troll_health = 80
-troll_attack = 25
-
-while troll_health > 0 and player_health > 0:
+    while troll_health > 0 and player_health > 0:
         troll_health -= player_attack
         damage = troll_attack - player_armor
         if damage < 0:
@@ -104,7 +102,7 @@ while troll_health > 0 and player_health > 0:
         print(f"The troll hits you! Your health: {player_health-5}")
         time.sleep(1.5)
 
-if player_health <= 0:
+    if player_health <= 0:
         print("\n💀 You were crushed by the troll...")
-else:
+    else:
         print("\n🏆 You defeated all enemies! You win the game!")
